@@ -660,15 +660,15 @@ footer {
   border-top: 1px solid rgba(255,255,255,0.05);
 }
 </style>
+  <link rel="icon" type="image/png" href="logo-icon.png" />
 </head>
 <body>
 
 <!-- ── NAV ──────────────────────────────────────────────── -->
 <nav id="nav">
   <div class="nav-inner">
-    <a href="#" class="logo">
-      <span class="logo-dot"></span>
-      Massive Impact
+    <a href="/" class="logo">
+      <img src="logo-full.png" alt="Massive Impact Custom Assistants" style="height:36px;width:auto;display:block;" />
     </a>
     <ul class="nav-links">
       <li><a href="#pain">The Problem</a></li>
@@ -793,35 +793,35 @@ footer {
 
       <div class="reveal">
         <div class="section-label">The Solution</div>
-        <h2 class="section-title">Meet Your 24/7 AI Assistant</h2>
-        <p class="section-sub">A custom-built chatbot that lives on your website and handles everything from first contact to booked job — while you're out working.</p>
+        <h2 class="section-title">This Is What Your<br>Customers Experience</h2>
+        <p class="section-sub">The bot on the right isn't a mockup — it's the real thing. Type in an address and watch it give an instant quote. Try asking about scheduling, services, or pricing.</p>
         <div class="solution-points">
           <div class="sol-point">
             <div class="sol-num">1</div>
             <div class="sol-text">
-              <h4>Greets every visitor instantly</h4>
-              <p>No hold music, no voicemail. Your bot starts the conversation the second someone lands on your site.</p>
+              <h4>Give it a real address</h4>
+              <p>Type any address and it'll look up the property and return a quote — just like it would on your website.</p>
             </div>
           </div>
           <div class="sol-point">
             <div class="sol-num">2</div>
             <div class="sol-text">
-              <h4>Qualifies the lead for you</h4>
-              <p>Asks the right questions — service type, location, frequency, budget — so you only talk to serious prospects.</p>
+              <h4>Ask it anything</h4>
+              <p>Try "Do you do fertilization?" or "Can I get a one-time cut?" — it handles real questions, not just scripts.</p>
             </div>
           </div>
           <div class="sol-point">
             <div class="sol-num">3</div>
             <div class="sol-text">
-              <h4>Pin-drop property mapping</h4>
-              <p>Customers drop a pin on their exact yard or parking lot. Instant square footage. No guessing, no site visits.</p>
+              <h4>Watch it capture the lead</h4>
+              <p>It'll ask for your name and contact info to follow up — the same way it qualifies your real customers.</p>
             </div>
           </div>
           <div class="sol-point">
             <div class="sol-num">4</div>
             <div class="sol-text">
-              <h4>Notifies you the moment a lead comes in</h4>
-              <p>Text or email the second someone qualifies. You follow up fast, you close more jobs.</p>
+              <h4>This runs 24/7 on your site</h4>
+              <p>Every conversation like this is a lead captured while you're on the job, at dinner, or asleep.</p>
             </div>
           </div>
         </div>
@@ -829,13 +829,16 @@ footer {
 
       <!-- Live Demo Widget -->
       <div class="reveal reveal-d2">
-        <div style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;text-align:center;">▶ Live Demo — Try It Now</div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:12px;text-align:center;">▶ Try It — Type a Real Address</div>
         <div class="demo-widget" id="demoWidget">
           <div class="demo-header">
             <div class="demo-avatar">🌿</div>
             <div>
               <div class="demo-title" id="demoTitle">GreenPath Assistant</div>
-              <div class="demo-sub">Powered by Massive Impact</div>
+              <div class="demo-sub" style="display:flex;align-items:center;gap:8px;justify-content:center;">
+                <img src="logo-icon.png" alt="MI" style="height:20px;width:auto;" />
+                <span>Powered by Massive Impact</span>
+              </div>
             </div>
             <div class="demo-toggle">
               <button class="active" id="lawnBtn" onclick="setDemoMode('lawn')">🌿 Lawn</button>
@@ -945,7 +948,7 @@ footer {
     <h2>Ready to Stop<br><em>Missing Leads?</em></h2>
     <p class="cta-sub">Book a free 20-minute demo call. We'll show you exactly what your bot would look like — no pressure, no obligation.</p>
     <div class="cta-btns">
-      <a href="https://calendly.com/chris-massiveimpactcoaching/free-20-minute-demo-call" class="btn btn-primary" style="font-size:16px;padding:16px 36px;">Book My Free Demo Call →</a>
+      <a href="mailto:hello@massiveimpactcoaching.com" class="btn btn-primary" style="font-size:16px;padding:16px 36px;">Book My Free Demo Call →</a>
       <a href="#solution" class="btn btn-outline">Watch It Work First</a>
     </div>
   </div>
@@ -955,7 +958,9 @@ footer {
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <a href="#" class="footer-logo">Massive Impact</a>
+      <a href="/" class="footer-logo">
+        <img src="logo-full.png" alt="Massive Impact Custom Assistants" style="height:44px;width:auto;display:block;" />
+      </a>
       <ul class="footer-links">
         <li><a href="#pain">The Problem</a></li>
         <li><a href="#solution">Demo</a></li>
@@ -970,94 +975,82 @@ footer {
 
 <!-- ── Scripts ────────────────────────────────────────────── -->
 <script>
-/* Nav scroll */
+/* ── Nav scroll ─────────────────────────────────────────── */
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
 });
 
-/* Scroll reveal */
+/* ── Scroll reveal ──────────────────────────────────────── */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-/* ── Demo chatbot ──────────────────────────────────────── */
-let demoMode = 'lawn';
-let demoStep = 0;
+/* ── Keyframe for message animation ────────────────────── */
+const style = document.createElement('style');
+style.textContent = `@keyframes msgIn { to { opacity:1; transform:translateY(0); } }`;
+document.head.appendChild(style);
 
-const flows = {
-  lawn: {
-    title: 'GreenPath Assistant',
-    icon: '🌿',
-    greeting: "Hi there! 👋 I can get you an accurate lawn care quote in under 2 minutes. What service are you looking for?",
-    chips1: ["🌿 Lawn Mowing", "🌱 Fertilization", "🏡 Full Care Package", "🧹 One-Time Cleanup"],
-    step2: "Great choice! To give you an accurate quote, I'll need your address so we can find your property on the map and measure your yard. What's your address?",
-    step3: "📍 Perfect! I've pulled up your property. In a moment I'd ask you to drop a pin on your exact yard. For this demo, let's keep going — how often are you looking for service?",
-    chips3: ["Weekly", "Bi-Weekly", "Monthly", "Just Once"],
-    step4: "Awesome! Last question — what's the best way for our team to reach you with your quote?",
-    chips4: ["📧 Email me", "📱 Text me", "📞 Call me"],
-    step5: "You're all set! 🎉 One of our team members will have your custom quote ready within the hour. We'll reach out shortly. Thanks for choosing GreenPath!",
-  },
-  snow: {
-    title: 'SnowClear Assistant',
-    icon: '❄️',
-    greeting: "Hey! ❄️ Let's get you set up with snow removal fast. Are you looking for service at a home or commercial property?",
-    chips1: ["🏠 Residential Driveway", "🏢 Commercial Parking Lot", "🚶 Sidewalks & Walkways", "📦 Full Property"],
-    step2: "Got it! Let me locate your property. Enter your address and we'll drop a pin on your parking lot or driveway so we can estimate the job accurately.",
-    step3: "📍 Location confirmed! For a commercial lot that size, we'll want to discuss seasonal vs. per-event pricing. How often do you typically need service?",
-    chips3: ["Per Snowfall", "Weekly Contract", "Monthly Contract", "Full Season Deal"],
-    step4: "Perfect. How should we send you the quote?",
-    chips4: ["📧 Email me", "📱 Text me", "📞 Call me"],
-    step5: "You're all set! ❄️ Our team will prep a custom snow removal quote for your property and be in touch within the hour. Stay warm!",
-  }
-};
+/* ══════════════════════════════════════════════════════════
+   AI CHATBOT ENGINE
+   Proxy URL — no API key needed here, it lives on Railway.
+══════════════════════════════════════════════════════════ */
+const PROXY_URL = "https://massive-impact-proxy-production.up.railway.app/chat";
 
-function setDemoMode(m) {
-  demoMode = m;
-  demoStep = 0;
-  document.getElementById('lawnBtn').className = m === 'lawn' ? 'active' : '';
-  document.getElementById('snowBtn').className = m === 'snow' ? 'active' : '';
-  const f = flows[m];
-  document.getElementById('demoTitle').textContent = f.title;
-  document.querySelector('.demo-avatar').textContent = f.icon;
-  document.getElementById('demoMessages').innerHTML = '';
-  document.getElementById('demoChips').innerHTML = '';
-  setTimeout(startDemo, 200);
-}
+const SYSTEM_PROMPT = `You are a friendly, professional AI assistant for a lawn care company. You help potential customers get an instant mowing quote, suggest additional services, and get them scheduled.
 
-function startDemo() {
-  const f = flows[demoMode];
-  addDemoBot(f.greeting, () => showChips(f.chips1, (c) => {
-    addDemoUser(c);
-    clearChips();
-    demoStep = 1;
-    typing(() => addDemoBot(f.step2, () => {
-      // simulate address entry after a moment
-      setTimeout(() => {
-        addDemoUser("📍 1482 Maplewood Drive, Springfield IL");
-        typing(() => addDemoBot(f.step3, () => showChips(f.chips3, (c2) => {
-          addDemoUser(c2);
-          clearChips();
-          typing(() => addDemoBot(f.step4, () => showChips(f.chips4, (c3) => {
-            addDemoUser(c3);
-            clearChips();
-            typing(() => addDemoBot(f.step5));
-          })));
-        })));
-      }, 1600);
-    }));
-  }));
-}
+CRITICAL CONVERSATION RULES — follow these exactly:
+1. Ask ONE question at a time. Never ask two questions in one message. Wait for the answer before moving on.
+2. Keep responses short — 1 to 3 sentences max.
+3. When a customer gives a "yes" or agrees to something, respond with "Great!" and then move to the next single step.
 
-function addDemoBot(text, cb) {
+QUOTE RULES:
+- Mowing quotes start at $75/mow. Never list all three tiers upfront.
+- When someone gives you an address, say: "I looked up your address — your yard lands at [price] per mow." Use these tiers privately: small/condo/townhouse = $75, typical suburban home = $125, large/corner/rural lot = $200. If unclear, use $125.
+- Do NOT explain square footage or lot size calculations. Just give the price tier cleanly.
+- After giving the mowing quote, ask if they'd like weekly or bi-weekly service — or mention a one-time cut is also available.
+
+UPSELL FLOW — after mowing frequency is confirmed, work through these one at a time:
+
+Step 1 — Fertilization:
+Ask: "Since I already have your property pulled up — a lot of our customers add lawn fertilization for $125 per treatment. Interested in adding that?"
+- If yes → "Great!" and note it. Move to Step 2.
+- If no → Move to Step 2.
+
+Step 2 — Bed maintenance:
+Ask: "One more thing — do you have any landscape beds or garden areas? We handle mulching and bed maintenance too."
+- If yes → "Great! Would you say it's a small, medium, or larger amount of landscaping?"
+  - Any answer → "Got it — we'll have someone give you a firm price on the beds when they confirm your visit."
+- If no → Move to lead capture.
+
+After both upsell steps are handled, move to lead capture.
+
+LEAD CAPTURE FLOW (one step at a time):
+- Ask: "Would you like to get on the schedule?"
+- If yes → "Great! What's your name?"
+- After name → "And the best number to reach you?"
+- After number → "Perfect. Someone will reach out within 24 hours to confirm your first visit and go over everything. Thanks, [name]! 🌿"
+
+SERVICES OFFERED:
+- Lawn mowing, edging, fertilization, mulching, bed maintenance, spring/fall cleanup
+- Weekly and bi-weekly recurring service available
+- One-time cuts welcome
+
+TONE: Friendly, confident, concise. Never robotic. Plain language only.
+
+If asked something you can't answer, say: "Good question — let me have someone follow up with you on that directly."`;
+
+let conversationHistory = [];
+let isSending = false;
+
+function addDemoBot(text) {
   const msgs = document.getElementById('demoMessages');
   const div = document.createElement('div');
   div.className = 'dm-bot';
-  div.innerHTML = `<div class="dm-avatar">🤖</div><div class="dm-bubble">${text}</div>`;
-  div.style.cssText = 'opacity:0;transform:translateY(8px);animation:msgIn 0.3s forwards';
+  div.innerHTML = `<div class="dm-avatar">🌿</div><div class="dm-bubble">${text}</div>`;
+  div.style.cssText = 'opacity:0;transform:translateY(8px);animation:msgIn 0.35s forwards';
   msgs.appendChild(div);
   scrollDemo();
-  if (cb) setTimeout(cb, 150);
 }
 
 function addDemoUser(text) {
@@ -1065,29 +1058,34 @@ function addDemoUser(text) {
   const div = document.createElement('div');
   div.className = 'dm-user';
   div.innerHTML = `<div class="dm-avatar">👤</div><div class="dm-bubble">${text}</div>`;
-  div.style.cssText = 'opacity:0;transform:translateY(8px);animation:msgIn 0.3s forwards';
+  div.style.cssText = 'opacity:0;transform:translateY(8px);animation:msgIn 0.35s forwards';
   msgs.appendChild(div);
   scrollDemo();
 }
 
-function showChips(options, cb) {
-  const chips = document.getElementById('demoChips');
-  chips.innerHTML = '';
-  options.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'demo-chip';
-    btn.textContent = opt;
-    btn.onclick = () => { clearChips(); cb(opt); };
-    chips.appendChild(btn);
-  });
+function showTyping() {
+  const msgs = document.getElementById('demoMessages');
+  const div = document.createElement('div');
+  div.className = 'dm-bot';
+  div.id = 'typingIndicator';
+  div.innerHTML = `<div class="dm-avatar">🌿</div><div class="dm-bubble" style="display:flex;gap:5px;align-items:center;padding:12px 16px;">
+    <span style="width:7px;height:7px;background:rgba(255,255,255,0.4);border-radius:50%;animation:typing 1.2s infinite 0s"></span>
+    <span style="width:7px;height:7px;background:rgba(255,255,255,0.4);border-radius:50%;animation:typing 1.2s infinite 0.2s"></span>
+    <span style="width:7px;height:7px;background:rgba(255,255,255,0.4);border-radius:50%;animation:typing 1.2s infinite 0.4s"></span>
+  </div>`;
+  div.style.cssText = 'opacity:0;transform:translateY(8px);animation:msgIn 0.3s forwards';
+
+  const typingStyle = document.createElement('style');
+  typingStyle.textContent = `@keyframes typing { 0%,80%,100%{opacity:0.3;transform:scale(0.8)} 40%{opacity:1;transform:scale(1)} }`;
+  document.head.appendChild(typingStyle);
+
+  msgs.appendChild(div);
+  scrollDemo();
 }
 
-function clearChips() {
-  document.getElementById('demoChips').innerHTML = '';
-}
-
-function typing(cb, d = 1100) {
-  setTimeout(cb, d);
+function removeTyping() {
+  const el = document.getElementById('typingIndicator');
+  if (el) el.remove();
 }
 
 function scrollDemo() {
@@ -1095,21 +1093,79 @@ function scrollDemo() {
   setTimeout(() => m.scrollTo({ top: m.scrollHeight, behavior: 'smooth' }), 60);
 }
 
-function demoSend() {
+async function demoSend() {
+  if (isSending) return;
   const input = document.getElementById('demoInput');
   const val = input.value.trim();
   if (!val) return;
-  addDemoUser(val);
+
+  isSending = true;
   input.value = '';
-  typing(() => addDemoBot("Thanks! Go ahead and use the quick-reply buttons above, or our team will follow up with you shortly. 😊"), 800);
+  document.querySelector('.demo-send').disabled = true;
+
+  addDemoUser(val);
+  conversationHistory.push({ role: 'user', content: val });
+  showTyping();
+
+  try {
+    const response = await fetch(PROXY_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: conversationHistory
+      })
+    });
+
+    const data = await response.json();
+    removeTyping();
+
+    const reply = data?.content?.[0]?.text || "I'm having a little trouble right now — try again in a moment.";
+    addDemoBot(reply);
+    conversationHistory.push({ role: 'assistant', content: reply });
+
+  } catch (err) {
+    removeTyping();
+    addDemoBot("Connection hiccup — please try again.");
+    console.error(err);
+  }
+
+  isSending = false;
+  document.querySelector('.demo-send').disabled = false;
+  input.focus();
 }
 
-/* Add keyframe for chat messages */
-const style = document.createElement('style');
-style.textContent = `@keyframes msgIn { to { opacity:1; transform:translateY(0); } }`;
-document.head.appendChild(style);
+/* Send on Enter key */
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('demoInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); demoSend(); }
+  });
+});
 
-window.addEventListener('load', () => setTimeout(startDemo, 500));
+/* Mode toggle — reset conversation */
+function setDemoMode(m) {
+  document.getElementById('lawnBtn').className = m === 'lawn' ? 'active' : '';
+  document.getElementById('snowBtn').className = m === 'snow' ? 'active' : '';
+  document.getElementById('demoTitle').textContent = m === 'lawn' ? 'GreenPath Assistant' : 'SnowClear Assistant';
+  document.querySelector('.demo-avatar').textContent = m === 'lawn' ? '🌿' : '❄️';
+  document.getElementById('demoMessages').innerHTML = '';
+  document.getElementById('demoChips').innerHTML = '';
+  conversationHistory = [];
+  setTimeout(() => {
+    const greeting = m === 'lawn'
+      ? "Hey there! 👋 I can get you a lawn mowing quote fast. What's the address of the property?"
+      : "Hey! ❄️ I can get you a snow removal quote quickly. Is this for a home or a commercial property?";
+    addDemoBot(greeting);
+    conversationHistory.push({ role: 'assistant', content: greeting });
+  }, 200);
+}
+
+/* Start on load */
+window.addEventListener('load', () => setTimeout(() => setDemoMode('lawn'), 500));
 </script>
 </body>
 </html>
