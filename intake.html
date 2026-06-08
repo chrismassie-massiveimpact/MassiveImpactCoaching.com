@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Client Intake — Massive Impact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0a0a0a;
+    --bg2:       #111111;
+    --bg3:       #1a1a1a;
+    --border:    rgba(255,255,255,0.1);
+    --border-hi: rgba(255,255,255,0.18);
+    --green:     #3a8f5f;
+    --green-hi:  #4dab73;
+    --green-dim: rgba(58,143,95,0.15);
+    --green-mid: rgba(58,143,95,0.3);
+    --white:     #f0ede8;
+    --muted:     rgba(240,237,232,0.5);
+    --muted2:    rgba(240,237,232,0.3);
+    --red:       #e05a4e;
+    --radius:    8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav img { height: 36px; }
+  .nav-tag {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--green-hi);
+    background: var(--green-dim);
+    border: 1px solid var(--green-mid);
+    padding: 5px 14px;
+    border-radius: 100px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 72px 24px 56px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(58,143,95,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--green-hi);
+    background: var(--green-dim);
+    border: 1px solid var(--green-mid);
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green-hi); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 5vw, 52px);
+    font-weight: 400;
+    line-height: 1.12;
+    margin-bottom: 16px;
+    color: var(--white);
+  }
+  .hero h1 em { font-style: italic; color: var(--green-hi); }
+  .hero p {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 36px;
+  }
+
+  /* Progress */
+  .progress-track {
+    max-width: 400px;
+    margin: 0 auto;
+    height: 2px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--green-hi);
+    border-radius: 2px;
+    width: 0%;
+    transition: width .4s ease;
+  }
+  .progress-label {
+    font-size: 12px;
+    color: var(--muted2);
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 56px 24px 100px;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    margin-bottom: 56px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .section.visible { opacity: 1; transform: translateY(0); }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--green-dim);
+    border: 1px solid var(--green-mid);
+    color: var(--green-hi);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--white);
+  }
+
+  /* ── FIELDS ── */
+  .field { margin-bottom: 20px; }
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .02em;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .field label .hint {
+    font-weight: 400;
+    color: var(--muted);
+    font-size: 12px;
+    margin-left: 6px;
+  }
+  .field input[type="text"],
+  .field input[type="email"],
+  .field input[type="tel"],
+  .field input[type="url"],
+  .field textarea,
+  .field select {
+    width: 100%;
+    padding: 12px 15px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--white);
+    transition: border-color .2s, box-shadow .2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: var(--muted2); }
+  .field input:focus,
+  .field textarea:focus,
+  .field select:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(58,143,95,0.15);
+  }
+  .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .field select option { background: #1a1a1a; color: var(--white); }
+  .field textarea { resize: vertical; min-height: 90px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 540px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* Error */
+  .req { color: var(--red); margin-left: 2px; }
+  .error-msg { font-size: 12px; color: var(--red); margin-top: 5px; display: none; }
+  .field.has-error input,
+  .field.has-error textarea { border-color: var(--red); }
+  .field.has-error .error-msg { display: block; }
+
+  /* ── CHECKBOXES ── */
+  .group-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .group-label .hint { font-weight: 400; color: var(--muted); font-size: 12px; margin-left: 6px; }
+
+  .check-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 11px 13px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+    user-select: none;
+  }
+  .check-item:hover { border-color: var(--border-hi); background: var(--bg3); }
+  .check-item input { display: none; }
+  .check-item.checked { border-color: var(--green); background: var(--green-dim); }
+  .check-box {
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--border-hi);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .15s;
+  }
+  .check-item.checked .check-box { border-color: var(--green-hi); background: var(--green); }
+  .check-box::after {
+    content: '';
+    width: 5px; height: 9px;
+    border: 1.5px solid #fff;
+    border-top: none; border-left: none;
+    transform: rotate(45deg) translate(-1px, -1px);
+    display: none;
+  }
+  .check-item.checked .check-box::after { display: block; }
+  .check-text { font-size: 13px; color: var(--white); line-height: 1.35; }
+
+  /* ── PILLS ── */
+  .pill-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .pill {
+    padding: 9px 18px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 13px;
+    color: var(--white);
+    cursor: pointer;
+    transition: all .15s;
+    user-select: none;
+  }
+  .pill:hover { border-color: var(--border-hi); background: var(--bg3); }
+  .pill input { display: none; }
+  .pill.selected { border-color: var(--green-hi); background: var(--green); color: #fff; }
+
+  /* ── SUBMIT ── */
+  .submit-wrap {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px 32px;
+    text-align: center;
+    margin-top: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .submit-wrap::before {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 400px; height: 200px;
+    background: radial-gradient(ellipse, rgba(58,143,95,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .submit-wrap p { color: var(--muted); font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+    position: relative;
+  }
+  .submit-btn:hover { background: var(--green-hi); transform: translateY(-1px); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn svg { flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  .footer-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted2);
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── SUCCESS ── */
+  .success {
+    display: none;
+    text-align: center;
+    padding: 100px 24px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .success.show { display: block; }
+  .success-icon {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--green-dim);
+    border: 1px solid var(--green-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    font-size: 30px;
+    color: var(--green-hi);
+  }
+  .success h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+  .success p { color: var(--muted); font-size: 15px; line-height: 1.7; }
+
+  /* Site footer */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .site-footer img { height: 28px; opacity: .7; }
+  .site-footer p { font-size: 12px; color: var(--muted2); }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <a href="https://massiveimpactcoaching.com">
+    <img src="https://massiveimpactcoaching.com/logo-full.png" alt="Massive Impact">
+  </a>
+  <span class="nav-tag">Client Intake</span>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-eyebrow">AI Chatbot &amp; Lead System Setup</div>
+  <h1>Let's Build Your<br><em>AI Assistant.</em></h1>
+  <p>Fill this out once — it takes about 5 minutes — and we'll build a system custom to your business, your pricing, and your brand.</p>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">0 of 5 required fields complete</div>
+</div>
+
+<!-- Form -->
+<div class="container" id="formContainer">
+  <form id="intakeForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+
+    <!-- Hidden fields for checkbox/radio data -->
+    <input type="hidden" name="_subject" value="New Client Intake — Massive Impact">
+    <input type="hidden" name="_replyto" id="replyto">
+
+    <!-- 1. Business Basics -->
+    <div class="section" data-section="1">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">Business Basics</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field" id="f-bizname">
+          <label>Business Name <span class="req">*</span></label>
+          <input type="text" name="business_name" placeholder="e.g. Jay's Lawn Care" required>
+          <div class="error-msg">Required.</div>
+        </div>
+        <div class="field" id="f-owner">
+          <label>Owner / Primary Contact <span class="req">*</span></label>
+          <input type="text" name="owner_name" placeholder="Full name" required>
+          <div class="error-msg">Required.</div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field" id="f-phone">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" name="phone" placeholder="(555) 000-0000" required>
+          <div class="error-msg">Required.</div>
+        </div>
+        <div class="field" id="f-email">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" name="email" placeholder="you@yourbusiness.com" required oninput="document.getElementById('replyto').value=this.value">
+          <div class="error-msg">Please enter a valid email.</div>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Website URL <span class="hint">if you have one</span></label>
+          <input type="url" name="website" placeholder="https://yourbusiness.com">
+        </div>
+        <div class="field">
+          <label>Years in Business</label>
+          <input type="text" name="years_in_business" placeholder="e.g. 3 years">
+        </div>
+      </div>
+      <div class="field">
+        <label>Service Area <span class="hint">zip codes or radius</span></label>
+        <textarea name="service_area" placeholder="e.g. 45801, 45804, 45805 — or — 25-mile radius from Lima, OH"></textarea>
+      </div>
+    </div>
+
+    <!-- 2. Services & Pricing -->
+    <div class="section" data-section="2">
+      <div class="section-header">
+        <div class="section-num">2</div>
+        <div class="section-title">Services &amp; Pricing</div>
+      </div>
+
+      <span class="group-label">Services Offered <span class="hint">check all that apply</span></span>
+      <div class="check-grid">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="services" value="Lawn Mowing"><div class="check-box"></div><span class="check-text">Lawn Mowing</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="services" value="Fertilization"><div class="check-box"></div><span class="check-text">Fertilization</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="services" value="Aeration / Overseeding"><div class="check-box"></div><span class="check-text">Aeration / Overseeding</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="services" value="Snow Removal"><div class="check-box"></div><span class="check-text">Snow Removal</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="services" value="Salting / De-icing"><div class="check-box"></div><span class="check-text">Salting / De-icing</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="services" value="Leaf Cleanup"><div class="check-box"></div><span class="check-text">Leaf Cleanup</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="services" value="Hedge / Shrub Trimming"><div class="check-box"></div><span class="check-text">Hedge / Shrub Trimming</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="services" value="Full Yard Care Package"><div class="check-box"></div><span class="check-text">Full Yard Care Package</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="services" value="One-Time Cleanup"><div class="check-box"></div><span class="check-text">One-Time Cleanup</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="services" value="Commercial Properties"><div class="check-box"></div><span class="check-text">Commercial Properties</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="services" value="Residential Properties"><div class="check-box"></div><span class="check-text">Residential Properties</span></label>
+      </div>
+      <div class="field">
+        <label>Other Services <span class="hint">not listed above</span></label>
+        <input type="text" name="services_other" placeholder="Describe any additional services">
+      </div>
+
+      <span class="group-label">Pricing Model <span class="hint">check all that apply</span></span>
+      <div class="check-grid" style="grid-template-columns: repeat(auto-fill, minmax(150px,1fr))">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="pricing_model" value="Flat Rate"><div class="check-box"></div><span class="check-text">Flat Rate</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="pricing_model" value="Per Sq Ft"><div class="check-box"></div><span class="check-text">Per Sq Ft</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="pricing_model" value="Hourly"><div class="check-box"></div><span class="check-text">Hourly</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="pricing_model" value="Custom Quote"><div class="check-box"></div><span class="check-text">Custom Quote</span></label>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label>Minimum Job Size / Price</label>
+          <input type="text" name="min_price" placeholder="e.g. $50 minimum">
+        </div>
+        <div class="field">
+          <label>Most Common Service Price</label>
+          <input type="text" name="common_price" placeholder="e.g. $45 lawn mow">
+        </div>
+      </div>
+      <div class="field">
+        <label>Package / Tier Details <span class="hint">optional</span></label>
+        <textarea name="package_details" placeholder="e.g. Basic = mow only | Premium = mow + edge + blow"></textarea>
+      </div>
+    </div>
+
+    <!-- 3. Property & Scheduling -->
+    <div class="section" data-section="3">
+      <div class="section-header">
+        <div class="section-num">3</div>
+        <div class="section-title">Property &amp; Scheduling</div>
+      </div>
+
+      <span class="group-label">Property Types Served</span>
+      <div class="check-grid">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="property_types" value="Residential – Small"><div class="check-box"></div><span class="check-text">Residential – Small (&lt;5k sqft)</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="property_types" value="Residential – Large"><div class="check-box"></div><span class="check-text">Residential – Large (5k–15k sqft)</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="property_types" value="Commercial – Small Lot"><div class="check-box"></div><span class="check-text">Commercial – Small Lot</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="property_types" value="Commercial – Large Lot"><div class="check-box"></div><span class="check-text">Commercial – Large Lot / Parking</span></label>
+      </div>
+
+      <span class="group-label">Recurring Schedule Options</span>
+      <div class="pill-group">
+        <label class="pill" onclick="togglePill(this)"><input type="checkbox" name="schedule" value="Weekly"> Weekly</label>
+        <label class="pill" onclick="togglePill(this)"><input type="checkbox" name="schedule" value="Bi-Weekly"> Bi-Weekly</label>
+        <label class="pill" onclick="togglePill(this)"><input type="checkbox" name="schedule" value="Monthly"> Monthly</label>
+        <label class="pill" onclick="togglePill(this)"><input type="checkbox" name="schedule" value="Per Event / On-Demand"> Per Event / On-Demand</label>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label>Current Booking Lead Time</label>
+          <input type="text" name="lead_time" placeholder="e.g. 1 week, 2 weeks">
+        </div>
+        <div class="field">
+          <label>Current Capacity</label>
+          <input type="text" name="capacity" placeholder="e.g. 80% booked, have openings">
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Pain Points -->
+    <div class="section" data-section="4">
+      <div class="section-header">
+        <div class="section-num">4</div>
+        <div class="section-title">Biggest Pain Point</div>
+      </div>
+
+      <span class="group-label">What is costing you the most right now? <span class="hint">check all that apply</span></span>
+      <div class="check-grid">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="pain_points" value="Missing leads"><div class="check-box"></div><span class="check-text">Missing leads — nobody answering the phone</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="pain_points" value="Slow response time"><div class="check-box"></div><span class="check-text">Slow response — leads go cold</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="pain_points" value="Quotes don't convert"><div class="check-box"></div><span class="check-text">Too much time on quotes that don't convert</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="pain_points" value="Scheduling issues"><div class="check-box"></div><span class="check-text">Scheduling is a mess / double bookings</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="pain_points" value="No follow-up system"><div class="check-box"></div><span class="check-text">No follow-up system after first contact</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="pain_points" value="Pricing hard to communicate"><div class="check-box"></div><span class="check-text">Hard to communicate pricing without a call</span></label>
+      </div>
+
+      <div class="field" id="f-pain">
+        <label>Describe in your own words <span class="req">*</span></label>
+        <textarea name="pain_description" rows="4" placeholder="What's the #1 problem you want the bot to solve?" required></textarea>
+        <div class="error-msg">Please describe your main challenge.</div>
+      </div>
+    </div>
+
+    <!-- 5. Chatbot Setup -->
+    <div class="section" data-section="5">
+      <div class="section-header">
+        <div class="section-num">5</div>
+        <div class="section-title">Chatbot Setup</div>
+      </div>
+
+      <span class="group-label">Primary Goal of the Bot <span class="hint">choose one</span></span>
+      <div class="pill-group" id="bot-goal">
+        <label class="pill" onclick="selectPill(this,'bot-goal')"><input type="radio" name="bot_goal" value="Qualify the lead first"> Qualify the lead first</label>
+        <label class="pill" onclick="selectPill(this,'bot-goal')"><input type="radio" name="bot_goal" value="Give an instant quote"> Give an instant quote</label>
+        <label class="pill" onclick="selectPill(this,'bot-goal')"><input type="radio" name="bot_goal" value="Book a call / appointment"> Book a call / appointment</label>
+      </div>
+
+      <span class="group-label">Ideal Outcome of a Chat Conversation <span class="hint">check all that apply</span></span>
+      <div class="check-grid">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="chat_outcome" value="Email captured"><div class="check-box"></div><span class="check-text">Email address captured</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="chat_outcome" value="Phone captured"><div class="check-box"></div><span class="check-text">Phone number captured</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="chat_outcome" value="Appointment booked"><div class="check-box"></div><span class="check-text">Appointment booked</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="chat_outcome" value="Instant quote shown"><div class="check-box"></div><span class="check-text">Instant quote shown</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="chat_outcome" value="Call Now CTA"><div class="check-box"></div><span class="check-text">Call Now CTA triggered</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="chat_outcome" value="Form submitted"><div class="check-box"></div><span class="check-text">Form submitted</span></label>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label>Who Receives Lead Notifications?</label>
+          <input type="text" name="lead_recipient" placeholder="Name / role">
+        </div>
+        <div class="field">
+          <label>Preferred Notification Method</label>
+          <input type="text" name="notification_method" placeholder="Email, SMS, or both">
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>CRM or Email Platform Used</label>
+          <input type="text" name="crm_platform" placeholder="e.g. HubSpot, Mailchimp, none">
+        </div>
+        <div class="field">
+          <label>SMS Notifications?</label>
+          <select name="sms_notifications">
+            <option value="">Select...</option>
+            <option>Yes — I'll set it up</option>
+            <option>Yes — please set it up for me</option>
+            <option>No</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Branding & Tone -->
+    <div class="section" data-section="6">
+      <div class="section-header">
+        <div class="section-num">6</div>
+        <div class="section-title">Branding &amp; Tone</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label>Primary Brand Color</label>
+          <input type="text" name="color_primary" placeholder="e.g. #2d6a4f or forest green">
+        </div>
+        <div class="field">
+          <label>Secondary / Accent Color</label>
+          <input type="text" name="color_secondary" placeholder="e.g. #f5a623 or gold">
+        </div>
+      </div>
+      <div class="field">
+        <label>Logo File or Link <span class="hint">optional</span></label>
+        <input type="text" name="logo_link" placeholder="Google Drive link, Dropbox, or website URL">
+      </div>
+
+      <span class="group-label">Preferred Tone of the Bot <span class="hint">choose one</span></span>
+      <div class="pill-group" id="bot-tone">
+        <label class="pill" onclick="selectPill(this,'bot-tone')"><input type="radio" name="bot_tone" value="Very Professional"> Very Professional</label>
+        <label class="pill" onclick="selectPill(this,'bot-tone')"><input type="radio" name="bot_tone" value="Friendly & Warm"> Friendly &amp; Warm</label>
+        <label class="pill" onclick="selectPill(this,'bot-tone')"><input type="radio" name="bot_tone" value="Casual / Conversational"> Casual / Conversational</label>
+        <label class="pill" onclick="selectPill(this,'bot-tone')"><input type="radio" name="bot_tone" value="Bold & Direct"> Bold &amp; Direct</label>
+      </div>
+
+      <div class="field">
+        <label>Language or Phrases to Use / Avoid</label>
+        <textarea name="language_notes" placeholder="e.g. Always say 'we' not 'I' — avoid the word 'cheap' — always mention the free estimate"></textarea>
+      </div>
+    </div>
+
+    <!-- 7. Follow-Up & Nurture -->
+    <div class="section" data-section="7">
+      <div class="section-header">
+        <div class="section-num">7</div>
+        <div class="section-title">Follow-Up &amp; Lead Nurture</div>
+      </div>
+
+      <span class="group-label">Current Follow-Up Process</span>
+      <div class="check-grid">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="followup_current" value="Call manually"><div class="check-box"></div><span class="check-text">Call them back manually</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="followup_current" value="Email manually"><div class="check-box"></div><span class="check-text">Send an email manually</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="followup_current" value="No system"><div class="check-box"></div><span class="check-text">No current follow-up system</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="followup_current" value="Automated sequence"><div class="check-box"></div><span class="check-text">Automated sequence already in place</span></label>
+      </div>
+
+      <span class="group-label">Additional Services Interested In</span>
+      <div class="check-grid">
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="addon_services" value="Auto-confirmation email"><div class="check-box"></div><span class="check-text">Auto-confirmation email after chat</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="addon_services" value="3-email nurture sequence"><div class="check-box"></div><span class="check-text">3-email nurture sequence for cold leads</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="addon_services" value="Monthly newsletter"><div class="check-box"></div><span class="check-text">Monthly newsletter / promo setup</span></label>
+        <label class="check-item" onclick="toggleCheck(this)"><input type="checkbox" name="addon_services" value="Google review automation"><div class="check-box"></div><span class="check-text">Google review request automation</span></label>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label>Preferred Timeline to Launch</label>
+          <input type="text" name="timeline" placeholder="e.g. ASAP, 2 weeks, next month">
+        </div>
+        <div class="field">
+          <label>Budget Range</label>
+          <input type="text" name="budget" placeholder="e.g. $500–$1,000">
+        </div>
+      </div>
+      <div class="field">
+        <label>Additional Notes</label>
+        <textarea name="notes" placeholder="Anything else we should know before we get started?"></textarea>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-wrap">
+      <p>Once submitted, a Massive Impact consultant will follow up within 24 hours to confirm your details and begin building your system.</p>
+      <button type="submit" class="submit-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Submit Intake Form
+      </button>
+    </div>
+
+    <div class="footer-note">Confidential · For internal use only · Massive Impact Coaching · AI Chatbot Services</div>
+  </form>
+
+  <!-- Success -->
+  <div class="success" id="successMsg">
+    <div class="success-icon">✓</div>
+    <h2>You're all set.</h2>
+    <p>Your intake has been received. A Massive Impact consultant will be in touch within 24 hours to review your details and map out your custom AI assistant.</p>
+  </div>
+</div>
+
+<!-- Site footer -->
+<footer class="site-footer">
+  <a href="https://massiveimpactcoaching.com">
+    <img src="https://massiveimpactcoaching.com/logo-full.png" alt="Massive Impact">
+  </a>
+  <p>© 2026 Massive Impact – Custom AI Assistants. All rights reserved.</p>
+</footer>
+
+<script>
+  // Scroll-reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.section').forEach(s => obs.observe(s));
+
+  // Progress
+  function updateProgress() {
+    const required = document.querySelectorAll('#intakeForm [required]');
+    let filled = 0;
+    required.forEach(f => { if (f.value.trim()) filled++; });
+    const pct = Math.round((filled / required.length) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = filled + ' of ' + required.length + ' required fields complete';
+  }
+  document.getElementById('intakeForm').addEventListener('input', updateProgress);
+
+  // Checkbox
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+    const cb = el.querySelector('input[type="checkbox"]');
+    if (cb) cb.checked = el.classList.contains('checked');
+  }
+
+  // Radio pills (single select)
+  function selectPill(el, groupId) {
+    document.querySelectorAll('#' + groupId + ' .pill').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+    const rb = el.querySelector('input[type="radio"]');
+    if (rb) rb.checked = true;
+  }
+
+  // Multi-select pills
+  function togglePill(el) {
+    el.classList.toggle('selected');
+    const cb = el.querySelector('input');
+    if (cb) cb.checked = el.classList.contains('selected');
+  }
+
+  // Validation + submit
+  document.getElementById('intakeForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let valid = true;
+
+    const checks = [
+      { wrapper: 'f-bizname', name: 'business_name' },
+      { wrapper: 'f-owner',   name: 'owner_name' },
+      { wrapper: 'f-phone',   name: 'phone' },
+      { wrapper: 'f-email',   name: 'email' },
+      { wrapper: 'f-pain',    name: 'pain_description' },
+    ];
+
+    checks.forEach(c => {
+      const wrapper = document.getElementById(c.wrapper);
+      const input = document.querySelector('[name="' + c.name + '"]');
+      if (!input || !input.value.trim()) {
+        if (wrapper) wrapper.classList.add('has-error');
+        valid = false;
+      } else {
+        if (wrapper) wrapper.classList.remove('has-error');
+      }
+    });
+
+    if (!valid) {
+      document.querySelector('.has-error').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    // Submit to Formspree
+    const form = this;
+    const data = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(res => {
+      if (res.ok) {
+        document.getElementById('formContainer').querySelector('form').style.display = 'none';
+        document.getElementById('successMsg').classList.add('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        alert('Something went wrong. Please try again or email chris@massiveimpactcoaching.com directly.');
+      }
+    }).catch(() => {
+      alert('Network error. Please try again or email chris@massiveimpactcoaching.com directly.');
+    });
+  });
+</script>
+</body>
+</html>
